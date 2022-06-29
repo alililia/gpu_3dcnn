@@ -91,16 +91,6 @@ BraTS 2017原始数据集的文件目录结构如下所示：
 通过官方网站安装MindSpore后，您可以按照如下步骤进行训练和评估：
 
 
-    ```bash
-    # 分布式训练
-    用法：bash run_distribute_train.sh [DATA_PATH] [TRAIN_PATH] [RANK_TABLE_FILE]
-
-    # 单机训练
-    用法：bash run_standalone_train.sh [DATA_PATH] [TRAIN_PATH] [DEVICE_ID]
-
-    # 运行评估示例
-    用法：bash run_eval.sh [DATA_PATH] [TEST_PATH] [CKPT_PATH] [DEVICE_ID]
-    ```
 
 - GPU处理器环境运行
 
@@ -196,13 +186,6 @@ BraTS 2017原始数据集的文件目录结构如下所示：
 ### 训练
 
 
-    ```bash
-    # 分布式训练
-    用法：bash run_distribute_train.sh [DATA_PATH] [TRAIN_PATH] [RANK_TABLE_FILE]
-
-    # 单机训练
-    用法：bash run_standalone_train.sh [DATA_PATH] [TRAIN_PATH] [DEVICE_ID]
-    ```
 
 - GPU处理器环境运行
 
@@ -244,11 +227,6 @@ BraTS 2017原始数据集的文件目录结构如下所示：
 ### 评估
 
 
-```bash
-# 分布式训练
-用法：bash run_eval.sh [DATA_PATH] [TEST_PATH] [CKPT_PATH] [DEVICE_ID]
-```
-
 - GPU处理器环境运行
 
 ```bash
@@ -258,16 +236,6 @@ BraTS 2017原始数据集的文件目录结构如下所示：
 
 ### 结果
 
-
-上述python命令将在后台运行，您可以通过eval.log文件查看结果。测试数据集的准确性如下：
-
-```bash
-mean dice whole:
-[0.99771376 0.81746066]
-mean dice core:
-[0.99902476 0.77739729]
-mean dice enhance:
-[0.99929174 0.75328799]
 ```
 
 - GPU处理器环境运行结果
@@ -313,38 +281,39 @@ python export.py --ckpt_file [CKPT_PATH] --file_name [FILE_NAME] --file_format [
 
 ## 性能
 
-### 评估性能
-
 #### BraTS2017上的3DCNN
 
-| ------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| 模型版本      | 3DCNN                                                        | 3DCNN                                                        |
-| 上传日期      | 2021-10-16                                                   | 2021-11-11                                                   |
-| MindSpore版本 | r1.3                                                         | r1.5                                                         |
-| 数据集        | BraTS 2017                                                   | BraTS 2017                                                   |
-| 训练参数      | epoch=5, steps per epoch=4200, batch_size=2                  | epoch=5, steps per epoch=8400, batch_size=2                  |
-| 优化器        | SGD                                                          | Adam                                                         |
-| 损失函数      | Softmax交叉熵                                                | Softmax交叉熵                                                |
-| 输出          | 概率                                                         | 概率                                                         |
-| 损失          | 0.07842843                                                   | 0.08314727                                                   |
-| 速度          | 345毫秒/步(8卡)                                              | 339毫秒/步(8卡)                                              |
-| 总时长        | 2.9小时                                                      | 3.9小时                                                      |
-| 微调检查点    | 9.1M (.ckpt文件)                                             | 9.1M (.ckpt文件)                                             |
-| 脚本          | [链接](https://gitee.com/mindspore/models/tree/master/research/cv/3dcnn) | [链接](https://gitee.com/mindspore/models/tree/master/research/cv/3dcnn) |
+| 参数          | GPU V100                                                     |
+| ------------- | ------------------------------------------------------------ |
+| 模型版本      |  3DCNN                                                        |
+| 资源          | Telsa GPU V100                                               |
+| 上传日期      | 2021-11-11                                                   |
+| MindSpore版本 |  r1.5                                                         |
+| 数据集        | BraTS 2017                                                   |
+| 训练参数      | epoch=5, steps per epoch=8400, batch_size=2                  |
+| 优化器        | Adam                                                         |
+| 损失函数      |Softmax交叉熵                                                |
+| 输出          |  概率                                                         |
+| 损失          | 0.08314727                                                   |
+| 速度          | 339毫秒/步(8卡)                                              |
+| 总时长        |  3.9小时                                                      |
+| 微调检查点    | 9.1M (.ckpt文件)                                             |
+| 脚本          |  [链接](https://gitee.com/mindspore/models/tree/master/research/cv/3dcnn) |
 
 ### 推理性能
 
 #### BraTS2017上的3DCNN
 
+| 参数          | Ascend                      |
 | ------------------- | --------------------------- |
 | 模型版本       | 3DCNN                |
+| 资源            |  Ascend 310；系统 Eulerosv2r8                  |
 | 上传日期       | 2021-11-11 |
 | MindSpore 版本   | r1.5                       |
 | 数据集             | BraTS 2017     |
 | 输出             | 概率                 |
 | 准确性            | whole: 81.74%; core: 77.73%; enhance: 75.32% |
 | 推理模型 | 3.26M (.mindir文件)         |
-
 # 随机情况说明
 
 在dataset.py中，我们设置了“create_dataset”函数内的种子，同时还使用了train.py中的随机种子，mindrecord_generator.py使用了随机种子。
